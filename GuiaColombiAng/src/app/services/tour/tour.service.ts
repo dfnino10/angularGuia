@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Tour } from "../../models/tour.model";
 import { HttpClient } from '@angular/common/http';
 import { TOURS } from "./tourMock";
+import { URL_SERVICIOS } from 'src/app/config/config';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,25 +12,36 @@ export class TourService {
 
   tours: Tour[] = [];
 
-  constructor(private httpService: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   getAllTours(): Tour[] {
     this.tours = TOURS;
     return this.tours;
   }
 
-  /*register(username: String, password: String, first_name: String, last_name: String, email: String): Observable<any> {  
-    this.messageService.add('RegisterService: Login call');
-    var obj = { username: username, password: password, first_name: first_name, last_name: last_name, email: email }
-    return of(this.httpClient.post(this.API_URL + '/gallery/addUser', JSON.stringify(obj), httpOptions).subscribe((data:  Response) => {
-       if(data[0].fields.username==username) {
-           this.router.navigate(['/gallery']);
-           this.messageService.add('Usuario adicionado');
-       } else {
-        this.messageService.add('Usuario o contraseña incorrectos');
-       }
-      }));
-  } */
+  getToursById(id: string) : Observable<Tour[]> {
 
+    this.httpClient.get(URL_SERVICIOS + '/guia/getTour?pk=' + id).subscribe((data) => {
 
+      if(data instanceof Array) {
+        console.log("true");
+        data.forEach( dataItem => {
+            console.log(dataItem);
+            let tour = new Tour();
+            tour.name = dataItem.fields.nombre;
+            tour.city = "Bogotá";
+            tour.price = dataItem.fields.precio;
+            tour.description = dataItem.fields.descripcion;
+            tour.category = "tour";
+            tour.responsible = dataItem.fields.guia;
+            this.tours.push(tour);
+        });
+      }else if(data instanceof Object) {
+        console.log(JSON.parse(JSON.stringify(data)).mensajeError);
+        this.tours = []; 
+      }
+    });
+    return of(this.tours);
+
+  }
 }
