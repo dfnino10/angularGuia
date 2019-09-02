@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { APP_ROUTES } from "./app-routes";
     BrowserAnimationsModule,
     MaterialModule,
     PagesModule,
+    FormsModule,
     APP_ROUTES
   ],
   providers: [],
