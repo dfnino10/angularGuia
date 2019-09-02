@@ -17,6 +17,7 @@ import { PagesModule } from './pages/pages.module';
 // Rutas
 import { APP_ROUTES } from "./app-routes";
 import { ServiceModule } from './services/service.module';
+import { UsuarioService } from './services/service.index';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { ServiceModule } from './services/service.module';
     FormsModule,
     APP_ROUTES
   ],
-  providers: [ServiceModule],
+  providers: [ServiceModule, UsuarioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
