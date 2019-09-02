@@ -26,7 +26,7 @@ const pagesRoutes: Routes = [
             { path: 'account-settings', component: AccoutSettingsComponent, data: { titulo: 'Ajustes de Tema' } },
             { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario' } },
             { path: 'busqueda/:termino', component: BusquedaComponent, data: { titulo: 'Buscador' } },
-            { path: 'tour', component: TourComponent},
+            { path: 'tour/:guiaId', component: TourComponent},
             // Mantenimientos
             {
                 path: 'usuarios',
