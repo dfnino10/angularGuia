@@ -4,7 +4,14 @@ import { Guia } from '../../models/guia.model'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styles: []
+  styles: [`
+          .redes{
+            margin: 5px;
+          }
+          #filtro{
+            margin: 45px;
+          }
+    `]
 })
 export class DashboardComponent implements OnInit {
   citys: any[] = [
@@ -20,7 +27,7 @@ export class DashboardComponent implements OnInit {
   Guias: Guia[] = [
     {
       apellidoPaterno: 'Duarte',
-      apellidoMaterno: 'Sepúlveda',
+      apellidoMaterno: 'Sepï¿½lveda',
       nombres: "Eduard",
       documento: '1090366576',
       fechaNacimiento: new Date(1992, 2, 14),

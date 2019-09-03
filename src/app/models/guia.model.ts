@@ -22,3 +22,34 @@ CATEGORIAS = (
   ('SO', 'Sitios ocultos')
 )
 */
+
+/* JSON
+{
+"guias": [
+    {
+  "apellidoPaterno": "Duarte",
+  "apellidoMaterno": "Sep�lveda",
+  "nombres": "Eduard",
+  "documento": "1090366576",
+  "fechaNacimiento": "1992-2-14",
+  "sexo": "M",
+  "descripcion": "Experto en Deportes extremos",
+  "categorias": ["Deportes","canoping"],
+  "fotoUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1CHZcIamB4hIA-AsPIC9eyBeC-WK17CG4PICi3K_pnqhwtiGF",
+  "usuariosRedes": "https://github.com/EduarDuarteS"
+},
+{
+  "apellidoPaterno": "Gomez",
+  "apellidoMaterno": "Tobeda",
+  "nombres": "Camila",
+  "documento": "1648526",
+  "fechaNacimiento": "1996-5-8",
+  "sexo": "F",
+  "descripcion": "Vive la aventura",
+  "categorias": ["DE"],
+  "fotoUrl": "https://cdn.colombia.com/sdi/2019/03/23/las-mujeres-de-bogota-se-toman-los-deportes-extremos-sobre-ruedas-721813.jpg",
+  "usuariosRedes": "https://www.facebook.com/people/Camila/100037474220943"
+}
+]
+}
+*/

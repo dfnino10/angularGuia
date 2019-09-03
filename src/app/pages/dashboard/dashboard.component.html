@@ -1,92 +1,62 @@
-<div class="">
-  <span>City:</span>
-  <mat-form-field>
-    <mat-label>Select City</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let city of citys" [value]="city.value">
-        {{city.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <span>Category: </span>
-  <mat-form-field>
-    <mat-label>Select Category</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let category of categorys" [value]="category.value">
-        {{category.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-div
-<div class="card-deck">
+<div class="container">
+  <!-- Fitros para buscar los guias -->
+  <div>
+    <span id="filtro">City:</span>
+    <mat-form-field>
+      <mat-label>Select City</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let city of citys" [value]="city.value">
+          {{city.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <span id="filtro">Category: </span>
+    <mat-form-field>
+      <mat-label>Select Category</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let category of categorys" [value]="category.value">
+          {{category.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-  <div *ngFor="let guia of Guias">
-    <div class="card" style="width: 18rem;">
-      <img src={{guia.fotoUrl}} class="card-img-top" alt="foto de {{guia.nombre}}">
-      <div class="card-body">
-        <h5 class="card-title">{{guia.nombres}}</h5>
-        <p class="card-text">{{guia.descripcion}}</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <span *ngIf="guia?.categorias?.length > 1">Categorias</span>
-          <span *ngIf="guia?.categorias?.length < 2">Categoria
-            <ul>
-              <li>No contiene</li>
+  <!-- Lista de los guias  -->
+  <div class="card-deck">
+    <div *ngFor="let guia of Guias">
+      <div class="card" style="width: 18rem;">
+        <img src={{guia.fotoUrl}} class="card-img-top" alt="foto de {{guia.nombre}}">
+        <div class="card-body">
+          <h5 class="card-title">{{guia.nombres}}</h5>
+          <p class="card-text">{{guia.descripcion}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <span *ngIf="guia?.categorias?.length > 1">Categorias</span>
+            <span *ngIf="guia?.categorias?.length < 2">Categoria
+              <ul>
+                <li *ngIf="guia?.categorias?.length < 1">No contiene</li>
+              </ul>
+            </span>
+            <ul *ngFor="let categoria of guia.categorias">
+              <li>{{categoria}}{{guia?.categorias?.length}}</li>
             </ul>
-          </span>
-          <ul *ngFor="let categoria of guia.categorias">
-            <li>{{categoria}}{{guia?.categorias?.length}}</li>
-          </ul>
-        </li>
-        <li class="list-group-item">Redes Sociales
-        <ul>
-          <li class="btn btn-googleplus"><a href={{guia.usuariosRedes}}><i class="fa fa-facebook-official">F</i> </a>
-          <!-- <button type="button" id="btnGoogle" class="btn btn-googleplus" data-toggle="tooltip" title="Iniciar sesión con Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </button> -->
-
-
+          </li>
+          <li class="list-group-item">Redes Sociales <br>
+            <a class="redes" title="facebook de {{guia.nombres}}" data-toggle="tooltip" href={{guia.usuariosRedes}} target="_blank"><i class="fa fa-facebook fa-2x"></i> </a>
+            <a class="redes" title="Google plus de {{guia.nombres}}" data-toggle="tooltip" href={{guia.usuariosRedes}} target="_blank"><i class="fa fa-google fa-2x"></i></a>
+            <a class="redes" title="twitter de {{guia.nombres}}" data-toggle="tooltip" href={{guia.usuariosRedes}} target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+            <a class="redes" title="instagram de {{guia.nombres}}" data-toggle="tooltip" href={{guia.usuariosRedes}} target="_blank"><i class="fa fa-instagram fa-2x"></i></a>
           </li>
         </ul>
-        </li>
-        <li class="list-group-item">Vestibulum at eros</li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+        <div class="card-body">
+          <a href="#" class="card-link">Card link <i class="fa fa-rouble"></i></a>
+          <a href="#" class="card-link"> <i class="fas fa-hiking"></i><i class="fas fa-route">route</i>Another link</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm">
-      <figure class="figure">
-        <img src="../assets/images/dashboard/mar.jpg" width="500px" class="figure-img img-fluid rounded" alt="...">
-        <figcaption class="figure-caption text-right">A caption for the above image.</figcaption>
-      </figure>
-    </div>
-    <div class="col-sm">
-      <figure class="figure">
-        <img src="../assets/images/dashboard/isla_del_sol.jpg" width="500px" class="figure-img img-fluid rounded" alt="...">
-        <figcaption class="figure-caption text-right">A caption for the above image.</figcaption>
-      </figure>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm">
-      <figure class="figure">
-        <img src="../assets/images/dashboard/canocristales.jpg" width="500px" class="figure-img img-fluid rounded" alt="...">
-        <figcaption class="figure-caption text-right">A caption for the above image.</figcaption>
-      </figure>
-    </div>
-    <div class="col-sm">
-      <figure class="figure">
-        <img src="../assets/images/dashboard/PARQUE-TAYRONA.jpg" width="500px" class="figure-img img-fluid rounded" alt="...">
-        <figcaption class="figure-caption text-right">A caption for the above image.</figcaption>
-      </figure>
-    </div>
-  </div>
+  <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
 </div>
