@@ -18,6 +18,46 @@
     </mat-select>
   </mat-form-field>
 </div>
+div
+<div class="card-deck">
+
+  <div *ngFor="let guia of Guias">
+    <div class="card" style="width: 18rem;">
+      <img src={{guia.fotoUrl}} class="card-img-top" alt="foto de {{guia.nombre}}">
+      <div class="card-body">
+        <h5 class="card-title">{{guia.nombres}}</h5>
+        <p class="card-text">{{guia.descripcion}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <span *ngIf="guia?.categorias?.length > 1">Categorias</span>
+          <span *ngIf="guia?.categorias?.length < 2">Categoria
+            <ul>
+              <li>No contiene</li>
+            </ul>
+          </span>
+          <ul *ngFor="let categoria of guia.categorias">
+            <li>{{categoria}}{{guia?.categorias?.length}}</li>
+          </ul>
+        </li>
+        <li class="list-group-item">Redes Sociales
+        <ul>
+          <li class="btn btn-googleplus"><a href={{guia.usuariosRedes}}><i class="fa fa-facebook-official">F</i> </a>
+          <!-- <button type="button" id="btnGoogle" class="btn btn-googleplus" data-toggle="tooltip" title="Iniciar sesión con Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </button> -->
+
+
+          </li>
+        </ul>
+        </li>
+        <li class="list-group-item">Vestibulum at eros</li>
+      </ul>
+      <div class="card-body">
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container">
   <div class="row">
