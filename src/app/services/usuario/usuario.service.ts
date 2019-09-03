@@ -89,6 +89,19 @@ export class UsuarioService {
       )
   }
 
+  registar(usuario: Usuario) : Observable<any> {
+    let url = URL_SERVICIOS + '/guia/addUser/';
+    return this.http.post(url, JSON.stringify(usuario), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(err => {
+          swal.fire('Error registrando usuario', err.error.mensaje, 'error');
+          return Observable.throw(err);
+        }
+        )
+      )
+  }
+
 
   crearUsuario(usuario: Usuario) {
 

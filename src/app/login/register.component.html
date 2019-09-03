@@ -4,76 +4,68 @@
 <section id="wrapper" class="login-register login-sidebar" style="background-image:url(../assets/images/background/login-register.jpg);">
   <div class="login-box card">
     <div class="card-body">
-      <form class="form-horizontal form-material" id="loginform" action="index.html">
+      <form class="form-horizontal form-material" #f="ngForm" (ngSubmit)="registro( f )">
         <a href="javascript:void(0)" class="text-center db"><img src="../assets/images/logo-icon.png" alt="Home" /><br /><img src="../assets/images/logo-text.png" alt="Home" /></a>
-        <h3 class="box-title m-t-40 m-b-0">Register Now</h3><small>Create your account and enjoy</small>
+        <h3 class="box-title m-t-40 m-b-0">Registrese ahora</h3><small>Cree su cuente y disfrute</small>
         <div class="form-group m-t-20">
           <div class="col-xs-12">
-            <input class="form-control" type="text" required="" placeholder="User">
+            <input class="form-control" type="text" [ngModel]="usuario.usuario" required placeholder="User">
           </div>
         </div>
         <div class="form-group ">
           <div class="col-xs-12">
-            <input class="form-control" type="text" required="" placeholder="Firts Name">
+            <input class="form-control" type="text" [ngModel]="usuario.nombre" required placeholder="Nombres">
           </div>
         </div>
         <div class="form-group ">
           <div class="col-xs-12">
-            <input class="form-control" type="text" required="" placeholder="Last Name">
+            <input class="form-control" type="text" [ngModel]="usuario.apellido" required placeholder="Apellidos">
           </div>
         </div>
         <div class="form-group ">
           <div class="col-xs-12">
-            <input class="form-control" type="text" required="" placeholder="Document ID">
+            <input class="form-control" type="text" [ngModel]="usuario.usuario" required placeholder="Número de documento ">
           </div>
         </div>
         <div class="form-group ">
           <div class="col-xs-12">
-            <input class="form-control" type="text" required="" placeholder="phone number">
+            <input class="form-control" type="text" [ngModel]="usuario.telefono" required placeholder="phone number">
           </div>
         </div>
         <div class="form-group row">
           <div class="col-md-12">
             <div class="checkbox checkbox-primary p-t-0">
               <label>Sexo: </label>
-              <input id="checkbox-sex" type="checkbox">
-              <label for="checkbox-sex">Male</label>
-              <input id="checkbox-sex" type="checkbox">
-              <label for="checkbox-sex">Female</label>
+              <input id="checkbox-sex" type="checkbox" value="M" [ngModel]="usuario.sexo">
+              <label for="checkbox-sex">Masculino</label>
+              <input id="checkbox-sex" type="checkbox" value="F" [ngModel]="usuario.sexo">
+              <label for="checkbox-sex">Femenino</label>
             </div>
           </div>
         </div>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <input matInput [matDatepicker]="picker" [ngModel]="usuario.fechaNacimiento" placeholder="Fecha nacimiento">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
         </mat-form-field>
         <div class="form-group ">
           <div class="col-xs-12">
-            <input class="form-control" type="password" required="" placeholder="Password">
+            <input class="form-control" type="password" [ngModel]="usuario.password" required placeholder="Password">
           </div>
         </div>
         <div class="form-group">
           <div class="col-xs-12">
-            <input class="form-control" type="password" required="" placeholder="Confirm Password">
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-md-12">
-            <div class="checkbox checkbox-primary p-t-0">
-              <input id="checkbox-signup" type="checkbox">
-              <label for="checkbox-signup"> I agree to all <a href="#">Terms</a></label>
-            </div>
+            <input class="form-control" type="password" [ngModel]="confPassword" required placeholder="Confirm Password">
           </div>
         </div>
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
-            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Sign Up</button>
+            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Registrar</button>
           </div>
         </div>
         <div class="form-group m-b-0">
           <div class="col-sm-12 text-center">
-            <p>Already have an account? <a href="pages-login-2.html" class="text-info m-l-5"><b>Sign In</b></a></p>
+            <p>Ya tiene una cuenta creada? <a href="pages-login-2.html" class="text-info m-l-5"><b>Sign In</b></a></p>
           </div>
         </div>
       </form>

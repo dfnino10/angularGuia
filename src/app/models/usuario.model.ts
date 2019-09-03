@@ -1,14 +1,13 @@
 
 export class Usuario {
-
-    constructor(
-        public nombre: string,
-        public email: string,
-        public password: string,
-        public sexo?: boolean,
-        public img?: string,
-        public role?: string,
-        public _id?: string
-    ) { }
-
+    public usuario: string
+    public nombre: string
+    public apellido: string
+    public documento: string
+    public sexo: string
+    public fechaNacimiento: Date
+    public telefono: string
+    public email: string
+    public password: string
+    public id: string
 }
