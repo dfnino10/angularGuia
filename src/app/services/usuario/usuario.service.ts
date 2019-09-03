@@ -89,7 +89,8 @@ export class UsuarioService {
       )
   }
 
-  registar(usuario: Usuario) : Observable<any> {
+  crearUsuario(usuario: Usuario) {
+
     let url = URL_SERVICIOS + '/guia/addUser/';
     return this.http.post(url, JSON.stringify(usuario), this.httpOptions)
       .pipe(
@@ -102,17 +103,9 @@ export class UsuarioService {
       )
   }
 
-
-  crearUsuario(usuario: Usuario) {
-
-    let url = URL_SERVICIOS + '/usuario';
-
-
-  }
-
   actualizarUsuario(usuario: Usuario) {
 
-    let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+    let url = URL_SERVICIOS + '/usuario/' + usuario.id;
 
 
   }

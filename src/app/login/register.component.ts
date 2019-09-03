@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this._usuarioService.registar(this.usuario)
+    this._usuarioService.crearUsuario(this.usuario)
       .subscribe(data => {
       });
   }
