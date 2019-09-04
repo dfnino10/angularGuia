@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Guia } from "../../models/guia.model";
+import { Guia, Guias } from "../../models/guia.model";
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { Observable, of } from 'rxjs';
@@ -14,11 +14,11 @@ export class GuiasService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllGuias(): Observable<Object> {
+  getAllGuias(): Observable<Guias> {
 
     let UrlMockUp: string = "http://demo1489608.mockable.io";
 
-    return this.httpClient.get(UrlMockUp + '/guias')
+    return this.httpClient.get<Guias>(UrlMockUp + '/guias')
     .pipe(
       retry(1),
       catchError(err => {

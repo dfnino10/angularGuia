@@ -14,6 +14,9 @@ export class Guia {
   usuariosRedes: string; //(Facebook, Twitter, Instagram)
 
 }
+export class Guias {
+  guias: Guia[];
+}
 /*
 CATEGORIAS = (
   ('Mu', 'Museos'),
