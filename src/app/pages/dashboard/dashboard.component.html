@@ -5,7 +5,7 @@
     <mat-form-field>
       <mat-label>Select City</mat-label>
       <mat-select>
-        <mat-option *ngFor="let city of citys" [value]="city.value">
+        <mat-option *ngFor="let city of citys"  [value]="city.value">
           {{city.viewValue}}
         </mat-option>
       </mat-select>
@@ -13,8 +13,8 @@
     <span id="filtro">Category: </span>
     <mat-form-field>
       <mat-label>Select Category</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let category of categorys" [value]="category.value">
+      <mat-select  (selectionChange)="cambiaCat($event.value)" (change)="filtroCategory()">
+        <mat-option  *ngFor="let category of categorys"  [value]="category.value">
           {{category.viewValue}}
         </mat-option>
       </mat-select>

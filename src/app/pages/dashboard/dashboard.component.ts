@@ -25,8 +25,12 @@ export class DashboardComponent implements OnInit {
   pageSize: 5;
   pageSizeOptions = [5, 10, 25, 100];
 
-  Guias: Guia[] = []
-  guiasTotal: Guia[] = []
+  Guias: Guia[] = [];
+  catSeled: string = "";
+  ciuSeled: string = "";
+  guiasTotal: Guia[] = [];
+  guiaFiltered: Guia[] = []
+
 
   citys: any[] = [
     { value: 'steak-0', viewValue: 'Bogota' },
@@ -34,8 +38,10 @@ export class DashboardComponent implements OnInit {
     { value: 'tacos-2', viewValue: 'Villavicencio' }
   ];
   categorys: any[] = [
-    { value: 'steak-0', viewValue: 'Extreme' },
-    { value: 'pizza-1', viewValue: 'fly' }
+    { value: 'all', viewValue:'Todas'},
+    { value: 'Deportes', viewValue: 'Deportes' },
+    { value: 'DE', viewValue: 'DE' },
+    { value: 'canoping', viewValue: 'canoping' },
   ];
 
   Guiasr: Guia[] = [
@@ -94,9 +100,25 @@ export class DashboardComponent implements OnInit {
 
   }
   pageChangeEvent(event) {
-      console.log(event);
+    if (this.catSeled !== '' || this.ciuSeled !== '') {
+      const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
+      this.Guias = this.guiaFiltered.slice(offset).slice(0, event.pageSize);
+    } else {
       const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
       this.Guias = this.guiasTotal.slice(offset).slice(0, event.pageSize);
     }
+  }
+
+  //filtros
+  cambiaCat(cat: string) {
+    this.catSeled = cat;
+    if (cat == "all") {
+      this.guiaFiltered = this.guiasTotal;
+    } else {
+      this.guiaFiltered = this.guiasTotal.filter(guiaCiudad => guiaCiudad.categorias.includes(cat));
+    }
+    this.Guias = this.guiaFiltered.slice(0, 5);
+    this.pageLength = this.guiaFiltered.length;
+  }
 
 }
