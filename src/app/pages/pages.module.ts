@@ -4,7 +4,7 @@ import { PAGES_ROUTES } from './pages.routes';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { PagesComponent } from './pages.component';
@@ -21,6 +21,8 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
 import { MaterialModule } from '../material.module';
 import { TourComponent } from './tour/tour.component'
 import { HttpClientModule } from '@angular/common/http';
+import { EmailComponent } from './email/email.component';
+import { MatDialogModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     AccoutSettingsComponent,
     UsuariosComponent,
     BusquedaComponent,
-    TourComponent
+    TourComponent,
+    EmailComponent
   ],
   exports: [
     DashboardComponent,
@@ -38,11 +41,16 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     MaterialModule,
+    MatDialogModule,
     CommonModule,
     SharedModule,
     PAGES_ROUTES,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
+  ],
+  entryComponents: [
+    EmailComponent
   ]
 })
 export class PagesModule { }
