@@ -9,6 +9,7 @@ export class Guia {
   descripcion: string; //models.CharField(max_length=200)
   // una  frase debajo del nombre
   categorias: string[]; // Listado de categorias q aplican para el Guia
+  ciudad?: string[];
   //faltan
   fotoUrl: string; //foto de algún citio de la ciudad
   usuariosRedes: string; //(Facebook, Twitter, Instagram)

@@ -33,12 +33,13 @@ export class DashboardComponent implements OnInit {
 
 
   citys: any[] = [
-    { value: 'steak-0', viewValue: 'Bogota' },
-    { value: 'pizza-1', viewValue: 'Cúcuta' },
-    { value: 'tacos-2', viewValue: 'Villavicencio' }
+    { value: 'all', viewValue: 'Todas' },
+    { value: 'Bogota', viewValue: 'Bogotá' },
+    { value: 'Cúcuta', viewValue: 'Cúcuta' },
+    { value: 'villavicencio', viewValue: 'Villavicencio' }
   ];
   categorys: any[] = [
-    { value: 'all', viewValue:'Todas'},
+    { value: 'all', viewValue: 'Todas' },
     { value: 'Deportes', viewValue: 'Deportes' },
     { value: 'DE', viewValue: 'DE' },
     { value: 'canoping', viewValue: 'canoping' },
@@ -100,7 +101,7 @@ export class DashboardComponent implements OnInit {
 
   }
   pageChangeEvent(event) {
-    if (this.catSeled !== '' || this.ciuSeled !== '') {
+    if (this.catSeled !== '' && this.ciuSeled !== '') {
       const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
       this.Guias = this.guiaFiltered.slice(offset).slice(0, event.pageSize);
     } else {
@@ -110,15 +111,62 @@ export class DashboardComponent implements OnInit {
   }
 
   //filtros
-  cambiaCat(cat: string) {
-    this.catSeled = cat;
-    if (cat == "all") {
+  cambiaCat(cat: string, callCiu?: boolean) {
+    if (callCiu)
       this.guiaFiltered = this.guiasTotal;
-    } else {
+    this.catSeled = cat;
+    if (cat === "all") {
+      if (this.ciuSeled === '' || this.ciuSeled === 'all') {
+        this.guiaFiltered = this.guiasTotal;
+      } else {
+        if (!callCiu)
+          this.cambiaCiu(this.ciuSeled, true);
+      }
+    } else if (this.ciuSeled === '' || this.ciuSeled === 'all') {
+      if (!callCiu)
+        this.cambiaCiu(this.ciuSeled, true);
       this.guiaFiltered = this.guiasTotal.filter(guiaCiudad => guiaCiudad.categorias.includes(cat));
+    } else {
+      console.log("entro ciudad");
+      if (!callCiu)
+        this.cambiaCiu(this.ciuSeled, true);
+      this.guiaFiltered = this.guiaFiltered.filter(guiaCiudad => guiaCiudad.categorias.includes(cat));
+    }
+
+    this.Guias = this.guiaFiltered.slice(0, 5);
+    this.pageLength = this.guiaFiltered.length;
+  }
+  cambiaCiu(ciu: string, callCat?: boolean) {
+    if (callCat)
+      this.guiaFiltered = this.guiasTotal;
+    this.ciuSeled = ciu;
+    if (ciu === "all") {
+      if (this.catSeled === '' || this.catSeled === 'all') {
+        this.guiaFiltered = this.guiasTotal;
+      } else {
+        if (!callCat)
+          this.cambiaCat(this.catSeled, true);
+      }
+    } else if (this.catSeled === '' || this.catSeled === 'all') {
+      if (!callCat)
+        this.cambiaCat(this.catSeled, true);
+      this.guiaFiltered = this.guiasTotal.filter(guiaCiudad => guiaCiudad.ciudad.includes(ciu));
+    } else {
+      if (!callCat)
+        this.cambiaCat(this.catSeled, true);
+      this.guiaFiltered = this.guiaFiltered.filter(guiaCiudad => guiaCiudad.ciudad.includes(ciu));
     }
     this.Guias = this.guiaFiltered.slice(0, 5);
     this.pageLength = this.guiaFiltered.length;
   }
-
+  cambiaCiu2(ciu: string) {
+    this.ciuSeled = ciu;
+    if (ciu == "all") {
+      this.guiaFiltered = this.guiasTotal;
+    } else {
+      this.guiaFiltered = this.guiasTotal.filter(guiaCiudad => guiaCiudad.ciudad.includes(ciu));
+    }
+    this.Guias = this.guiaFiltered.slice(0, 5);
+    this.pageLength = this.guiaFiltered.length;
+  }
 }
