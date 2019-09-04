@@ -16,7 +16,7 @@ export class GuiasService {
 
   getAllGuias(): Observable<Guias> {
 
-    let UrlMockUp: string = "http://demo1489608.mockable.io";
+    let UrlMockUp: string = "https://demo1489608.mockable.io";
 
     return this.httpClient.get<Guias>(UrlMockUp + '/guias')
     .pipe(
