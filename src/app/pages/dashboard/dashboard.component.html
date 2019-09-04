@@ -23,7 +23,7 @@
 
   <!-- Lista de los guias  -->
   <div class="card-deck">
-    <div *ngFor="let guia of Guias">
+    <div *ngFor="let guia of Guias; let i = index">
       <div class="card" style="width: 18rem;">
         <img src={{guia.fotoUrl}} class="card-img-top" alt="foto de {{guia.nombre}}">
         <div class="card-body">
@@ -50,7 +50,7 @@
           </li>
         </ul>
         <div class="card-body">
-          <a href="#" class="card-link">Card link <i class="fa fa-rouble"></i></a>
+          <a href="#tour/{{i}}" class="card-link">Tours<i class="fa fa-rouble"></i></a>
           <a href="#" class="card-link"> <i class="fas fa-hiking"></i><i class="fas fa-route">route</i>Another link</a>
         </div>
       </div>
