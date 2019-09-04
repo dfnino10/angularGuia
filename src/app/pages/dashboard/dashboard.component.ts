@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GuiasService } from '../../services/guias/guias.service'
 import { Guia } from '../../models/guia.model'
 
 @Component({
@@ -14,6 +15,19 @@ import { Guia } from '../../models/guia.model'
     `]
 })
 export class DashboardComponent implements OnInit {
+  ngOnInit() {
+    this.cargarGuias();
+  }
+  ngAfterViewInit() {
+  }
+
+  pageLength: number;
+  pageSize: 5;
+  pageSizeOptions = [5, 10, 25, 100];
+
+  Guias: Guia[] = []
+  guiasTotal: Guia[] = []
+
   citys: any[] = [
     { value: 'steak-0', viewValue: 'Bogota' },
     { value: 'pizza-1', viewValue: 'Cúcuta' },
@@ -24,7 +38,7 @@ export class DashboardComponent implements OnInit {
     { value: 'pizza-1', viewValue: 'fly' }
   ];
 
-  Guias: Guia[] = [
+  Guiasr: Guia[] = [
     {
       apellidoPaterno: 'Duarte',
       apellidoMaterno: 'Sep�lveda',
@@ -34,7 +48,7 @@ export class DashboardComponent implements OnInit {
       sexo: 'M',
       descripcion: 'Experto en Deportes extremos',
       // una  frase debajo del nombre
-      categorias: ['Deportes','canoping'], //ojo debe ser una lista
+      categorias: ['Deportes', 'canoping'], //ojo debe ser una lista
       //faltan
       fotoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1CHZcIamB4hIA-AsPIC9eyBeC-WK17CG4PICi3K_pnqhwtiGF',
       usuariosRedes: 'https://github.com/EduarDuarteS',
@@ -54,9 +68,35 @@ export class DashboardComponent implements OnInit {
       usuariosRedes: 'https://www.facebook.com/people/Camila/100037474220943',
     }
   ];
-  constructor() { }
+  constructor(public _guiasService: GuiasService) { }
 
-  ngOnInit() {
+
+  cargarGuias() {
+    this._guiasService.getAllGuias()
+      .subscribe(data => {
+        // if (data.length>0)
+        // this.guiasTotal = (data.guias);
+        // this.pageLength = this.guiasTotal.length;
+        this.Guias = (data.guias);
+        this.guiasTotal = this.Guias;
+        this.pageLength = this.Guias.length;
+        // console.log("cargado del service", data);
+        this.dividirGuias();
+      });
   }
+
+  dividirGuias() {
+    this.Guias = this.guiasTotal.slice(0, 5);
+    console.log(this.Guias);
+    console.log(this.guiasTotal);
+  }
+  guiasMostrar() {
+
+  }
+  pageChangeEvent(event) {
+      console.log(event);
+      const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
+      this.Guias = this.guiasTotal.slice(offset).slice(0, event.pageSize);
+    }
 
 }

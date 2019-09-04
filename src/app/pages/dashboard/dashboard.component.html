@@ -1,4 +1,4 @@
-<div class="container">
+<div  >
   <!-- Fitros para buscar los guias -->
   <div>
     <span id="filtro">City:</span>
@@ -57,6 +57,9 @@
     </div>
   </div>
 
-  <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
-  </mat-paginator>
+
+  <mat-paginator (page)="pageChangeEvent($event)" #paginator [length]="pageLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
+  <!-- <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator> -->
 </div>
