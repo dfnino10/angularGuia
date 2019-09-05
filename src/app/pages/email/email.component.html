@@ -1,0 +1,20 @@
+<div class="example-container">
+    <form [formGroup]="form" (ngSubmit)="submit(form)">
+        <h1 mat-dialog-title>Send email to get a tour</h1>
+        <mat-form-field>
+            <input matInput formControlName="name" placeholder="Your name">
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+            <input matInput formControlName="email" placeholder="Your email">
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+            <textarea matInput formControlName="message" placeholder="Your messaje"></textarea>
+        </mat-form-field>
+        <mat-dialog-actions>
+            <button mat-button type="submit">Add</button>
+            <button mat-button type="button" mat-dialog-close>Cancel</button>
+        </mat-dialog-actions>
+    </form>
+</div>
