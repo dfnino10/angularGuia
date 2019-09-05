@@ -5,8 +5,8 @@
     <mat-form-field>
       <mat-label>Select City</mat-label>
       <mat-select (selectionChange)="cambiaCiu($event.value)">
-        <mat-option *ngFor="let city of citys"  [value]="city.value">
-          {{city.viewValue}}
+        <mat-option *ngFor="let city of cities"  [value]="city.pk">
+          {{city.fields.nombre}}
         </mat-option>
       </mat-select>
     </mat-form-field>

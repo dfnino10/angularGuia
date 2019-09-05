@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GuiasService } from '../../services/guias/guias.service'
 import { Guia } from '../../models/guia.model'
+import { Cities, City } from '../../models/cities.model'
+
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +19,7 @@ import { Guia } from '../../models/guia.model'
 export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.cargarGuias();
+    this.loadCities();
   }
   ngAfterViewInit() {
   }
@@ -32,6 +35,12 @@ export class DashboardComponent implements OnInit {
   guiaFiltered: Guia[] = []
 
 
+  cities: City[] = [
+    {
+      fields: { nombre: "Todas" },
+      pk: "all"
+    },
+  ]
   citys: any[] = [
     { value: 'all', viewValue: 'Todas' },
     { value: 'Bogota', viewValue: 'Bogotá' },
@@ -77,6 +86,16 @@ export class DashboardComponent implements OnInit {
   ];
   constructor(public _guiasService: GuiasService) { }
 
+
+  loadCities() {
+    this._guiasService.getCities()
+      .subscribe(data => {
+        let largo = Object.entries(data).length;
+        for (let i = 0; i < largo; i++) {
+          this.cities.push(data[i]);
+        }
+      })
+  };
 
   cargarGuias() {
     this._guiasService.getAllGuias()
