@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Guia, Guias } from "../../models/guia.model";
+import { GuiaT, GuiasT } from "../../models/guias.model";
+
 import { City, Cities } from "../../models/cities.model";
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from 'src/app/config/config';
@@ -40,7 +42,16 @@ export class GuiasService {
         )
       )
   };
-
+  getGuias(): Observable<GuiasT> {
+    return this.httpClient.get<GuiasT>(URL_SERVICIOS + '/guia/search')
+      .pipe(
+        retry(1),
+        catchError(err => {
+          return Observable.throw(err);
+        }
+        )
+      )
+  };
   // // this.httpClient.get(URL_SERVICIOS + '/guia/').subscribe((data) => {
   // this.httpClient.get(UrlMockUp + '/guias').subscribe((data: any) => {
   //   this.guias = data.guias;

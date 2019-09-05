@@ -5,8 +5,9 @@
     <mat-form-field>
       <mat-label>Select City</mat-label>
       <mat-select (selectionChange)="cambiaCiu($event.value)">
-        <mat-option *ngFor="let city of cities"  [value]="city.pk">
-          {{city.fields.nombre}}
+        <!-- <mat-option value="1" selected="selected">prueba</mat-option> -->
+        <mat-option *ngFor="let city of cities"   [value]="city?.pk">
+          {{city?.fields?.nombre}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -39,7 +40,7 @@
               </ul>
             </span>
             <ul *ngFor="let categoria of guia.categorias">
-              <li>{{categoria}}{{guia?.categorias?.length}}</li>
+              <li>{{categoria}}</li>
             </ul>
           </li>
           <li class="list-group-item">Redes Sociales <br>
@@ -50,8 +51,8 @@
           </li>
         </ul>
         <div class="card-body">
-          <a href="#tour/{{i}}" class="card-link">Tours<i class="fa fa-rouble"></i></a>
-          <a href="#" class="card-link"> <i class="fas fa-hiking"></i><i class="fas fa-route">route</i>Another link</a>
+          <a href="#tour/{{guia.pk}}" class="card-link">Ver los Tours de {{guia.nombre}}</a>
+          <!-- <a href="#" class="card-link"> <i class="fas fa-hiking"></i><i class="fas fa-route">route</i>Another link</a> -->
         </div>
       </div>
     </div>
