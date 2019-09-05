@@ -100,21 +100,15 @@ export class DashboardComponent implements OnInit {
   cargarGuias() {
     this._guiasService.getAllGuias()
       .subscribe(data => {
-        // if (data.length>0)
-        // this.guiasTotal = (data.guias);
-        // this.pageLength = this.guiasTotal.length;
         this.Guias = (data.guias);
         this.guiasTotal = this.Guias;
         this.pageLength = this.Guias.length;
-        // console.log("cargado del service", data);
         this.dividirGuias();
       });
   }
 
   dividirGuias() {
     this.Guias = this.guiasTotal.slice(0, 5);
-    console.log(this.Guias);
-    console.log(this.guiasTotal);
   }
   guiasMostrar() {
 
