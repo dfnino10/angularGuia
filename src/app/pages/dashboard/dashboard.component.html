@@ -26,7 +26,7 @@
   <div class="card-deck">
     <div *ngFor="let guia of Guias; let i = index">
       <div class="card" style="width: 18rem;">
-        <img src={{guia.fotoUrl}} class="card-img-top" alt="foto de {{guia.nombre}}">
+        <img src={{guia.fotoUrl}} (click)="_modalUploadService.mostrarModal()" class="card-img-top" alt="foto de {{guia.nombre}}">
         <div class="card-body">
           <h5 class="card-title">{{guia.nombres}} ({{guia.ciudad}})</h5>
           <p class="card-text">{{guia.descripcion}}</p>

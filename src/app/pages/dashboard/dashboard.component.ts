@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GuiasService } from '../../services/guias/guias.service'
 import { Guia } from '../../models/guia.model';
 import { City } from '../../models/cities.model'
+import { ModalUploadService } from '../../shared/modal-upload/modal-upload.service'
 
 
 @Component({
@@ -17,12 +18,27 @@ import { City } from '../../models/cities.model'
     `]
 })
 export class DashboardComponent implements OnInit {
+
+  constructor(
+    public _guiasService: GuiasService,
+    public _modalUploadService: ModalUploadService,
+  ) { }
+
   ngOnInit() {
     this.cargarGuias();
     this.loadCities();
     // this.getGuias();
   }
   ngAfterViewInit() {
+  }
+
+  ciudadVal(val: string) {
+    this.cities.forEach(function(city) {
+      if ("" + city.pk == "" + val) {
+        return city.fields.nombre;
+      }
+    });
+    // return "Desconocida";
   }
 
   pageLength: number;
@@ -48,15 +64,6 @@ export class DashboardComponent implements OnInit {
     { value: 'canoping', viewValue: 'canoping' },
   ];
 
-  constructor(public _guiasService: GuiasService) { }
-  ciudadVal(val: string) {
-    this.cities.forEach(function(city) {
-      if ("" + city.pk == "" + val){
-        return city.fields.nombre;
-      }
-    });
-    // return "Desconocida";
-  }
 
   loadCities() {
     this._guiasService.getCities()
