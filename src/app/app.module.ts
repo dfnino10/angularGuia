@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material';
 import { SharedModule } from './shared/shared.module';
 import { PagesModule } from './pages/pages.module';
 
+import { ImageUploadModule } from 'angular2-image-upload';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { ModalUploadComponent } from './shared/modal-upload/modal-upload.component';
@@ -34,6 +35,7 @@ import { UsuarioService } from './services/service.index';
     SharedModule,
     BrowserModule,
     BrowserAnimationsModule,
+    ImageUploadModule.forRoot(),
     MaterialModule,
     MatDialogModule,
     PagesModule,
