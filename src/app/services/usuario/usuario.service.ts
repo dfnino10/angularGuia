@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { Login } from '../../models/login.model';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders , HttpResponse } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
-import swal from 'sweetalert2'
+import swal from 'sweetalert2';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 
 import { Router } from '@angular/router';
@@ -76,7 +78,7 @@ export class UsuarioService {
       localStorage.removeItem('email');
     }
 
-    let url = URL_SERVICIOS + '/guia/login/';
+    const url = URL_SERVICIOS + '/guia/login/';
     console.log('url: ', url, 'usuario:', JSON.stringify(usuario));
     return this.http.post(url, JSON.stringify(usuario), this.httpOptions)
       .pipe(
@@ -86,26 +88,47 @@ export class UsuarioService {
           return Observable.throw(err);
         }
         )
-      )
+      );
   }
 
   crearUsuario(usuario: Usuario) {
 
-    let url = URL_SERVICIOS + '/guia/addUser/';
+    const url = URL_SERVICIOS + '/guia/addUser/';
     return this.http.post(url, JSON.stringify(usuario), this.httpOptions)
       .pipe(
-        retry(1),
         catchError(err => {
           swal.fire('Error registrando usuario', err.error.mensaje, 'error');
           return Observable.throw(err);
         }
         )
-      )
+      );
+  }
+
+  httpServiceCreateUser(data: any): Observable<any> {
+    const url = URL_SERVICIOS + '/guia/addUser/';
+    return this.postJSONGeneric(url, data).map(
+      response => {
+        return response;
+      }, error => {
+        return error;
+      }
+    );
+  }
+
+  postJSONGeneric(url, data): Observable<HttpResponse<string>> {
+    return this.http.post<string>(url, data,
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+          }),
+          observe: 'response'
+        }
+    );
   }
 
   actualizarUsuario(usuario: Usuario) {
 
-    let url = URL_SERVICIOS + '/usuario/' + usuario.id;
+    const url = URL_SERVICIOS + '/usuario/' + usuario.id;
 
 
   }
