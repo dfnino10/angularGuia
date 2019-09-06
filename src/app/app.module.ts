@@ -10,10 +10,13 @@ import { MaterialModule } from './material.module';
 import { MatDialogModule } from '@angular/material';
 
 //Modulos
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './login/register.component';
 import { SharedModule } from './shared/shared.module';
 import { PagesModule } from './pages/pages.module';
+
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './login/register.component';
+import { ModalUploadComponent } from './shared/modal-upload/modal-upload.component';
+
 
 // Rutas
 import { APP_ROUTES } from "./app-routes";
@@ -24,7 +27,8 @@ import { UsuarioService } from './services/service.index';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ModalUploadComponent
   ],
   imports: [
     SharedModule,
