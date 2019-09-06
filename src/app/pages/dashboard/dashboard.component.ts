@@ -51,9 +51,7 @@ export class DashboardComponent implements OnInit {
   constructor(public _guiasService: GuiasService) { }
   ciudadVal(val: string) {
     this.cities.forEach(function(city) {
-      console.log("val",val,"city.pk",city.pk)
       if ("" + city.pk == "" + val){
-        console.log("entro");
         return city.fields.nombre;
       }
     });
@@ -82,8 +80,6 @@ export class DashboardComponent implements OnInit {
   cargarGuias() {
     this._guiasService.getGuias()
       .subscribe(data => {
-        console.log("guias:", data[0].fields);
-        console.log("length:", data.length);
         for (let i = 0; i < data.length; i++) {
           let guiaAux = new Guia();
           guiaAux.pk = data[i].pk;
@@ -103,7 +99,6 @@ export class DashboardComponent implements OnInit {
           // guiaAux.usuariosRedes = data[i].fields.usuariosRedes;
           this.Guias.push(guiaAux);
         }
-        console.log("Guias: ", this.Guias);
         // this.Guias = (data.guias);
         this.guiasTotal = this.Guias;
         this.pageLength = this.Guias.length;
@@ -147,7 +142,6 @@ export class DashboardComponent implements OnInit {
         this.cambiaCiu(this.ciuSeled, true);
       this.guiaFiltered = this.guiasTotal.filter(guiaCiudad => guiaCiudad.categorias.includes("" + cat));
     } else {
-      console.log("entro ciudad");
       if (!callCiu)
         this.cambiaCiu(this.ciuSeled, true);
       this.guiaFiltered = this.guiaFiltered.filter(guiaCiudad => guiaCiudad.categorias.includes("" + cat));
