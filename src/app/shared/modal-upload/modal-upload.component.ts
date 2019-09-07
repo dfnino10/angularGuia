@@ -35,7 +35,7 @@ export class ModalUploadComponent implements OnInit {
     if (this.image != null) {
       console.log('send image');
       // this.http.post('https://127.0.0.1:8887', {
-      this.http.post('http://eduardduarte.ddns.net:444/', {
+      this.http.post('https://eduardduarte.ddns.net:443/', {
 
         file: this.image.image,
         name: this.image.name
