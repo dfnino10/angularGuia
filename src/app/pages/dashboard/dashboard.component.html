@@ -4,16 +4,17 @@
     <span id="filtro">City:</span>
     <mat-form-field>
       <mat-label>Select City</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let city of citys"  [value]="city.value">
-          {{city.viewValue}}
+      <mat-select (selectionChange)="cambiaCiu($event.value)">
+        <!-- <mat-option value="1" selected="selected">prueba</mat-option> -->
+        <mat-option *ngFor="let city of cities"   [value]="city?.pk">
+          {{city?.fields?.nombre}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <span id="filtro">Category: </span>
     <mat-form-field>
       <mat-label>Select Category</mat-label>
-      <mat-select  (selectionChange)="cambiaCat($event.value)" (change)="filtroCategory()">
+      <mat-select  (selectionChange)="cambiaCat($event.value)" >
         <mat-option  *ngFor="let category of categorys"  [value]="category.value">
           {{category.viewValue}}
         </mat-option>
@@ -25,9 +26,9 @@
   <div class="card-deck">
     <div *ngFor="let guia of Guias; let i = index">
       <div class="card" style="width: 18rem;">
-        <img src={{guia.fotoUrl}} class="card-img-top" alt="foto de {{guia.nombre}}">
+        <img src={{guia.fotoUrl}} (click)="_modalUploadService.mostrarModal()" class="card-img-top" alt="foto de {{guia.nombre}}">
         <div class="card-body">
-          <h5 class="card-title">{{guia.nombres}}</h5>
+          <h5 class="card-title">{{guia.nombres}} ({{guia.ciudad}})</h5>
           <p class="card-text">{{guia.descripcion}}</p>
         </div>
         <ul class="list-group list-group-flush">
@@ -39,7 +40,7 @@
               </ul>
             </span>
             <ul *ngFor="let categoria of guia.categorias">
-              <li>{{categoria}}{{guia?.categorias?.length}}</li>
+              <li>{{categoria}}</li>
             </ul>
           </li>
           <li class="list-group-item">Redes Sociales <br>
@@ -50,8 +51,8 @@
           </li>
         </ul>
         <div class="card-body">
-          <a href="#tour/{{i}}" class="card-link">Tours<i class="fa fa-rouble"></i></a>
-          <a href="#" class="card-link"> <i class="fas fa-hiking"></i><i class="fas fa-route">route</i>Another link</a>
+          <a href="#tour/{{guia.pk}}" class="card-link">Ver los Tours de {{guia.nombre}}</a>
+          <!-- <a href="#" class="card-link"> <i class="fas fa-hiking"></i><i class="fas fa-route">route</i>Another link</a> -->
         </div>
       </div>
     </div>

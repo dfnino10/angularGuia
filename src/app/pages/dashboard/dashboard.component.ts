@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GuiasService } from '../../services/guias/guias.service'
-import { Guia } from '../../models/guia.model'
+import { Guia } from '../../models/guia.model';
+import { City } from '../../models/cities.model'
+import { ModalUploadService } from '../../shared/modal-upload/modal-upload.service'
+
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +18,27 @@ import { Guia } from '../../models/guia.model'
     `]
 })
 export class DashboardComponent implements OnInit {
+
+  constructor(
+    public _guiasService: GuiasService,
+    public _modalUploadService: ModalUploadService,
+  ) { }
+
   ngOnInit() {
     this.cargarGuias();
+    this.loadCities();
+    // this.getGuias();
   }
   ngAfterViewInit() {
+  }
+
+  ciudadVal(val: string) {
+    this.cities.forEach(function(city) {
+      if ("" + city.pk == "" + val) {
+        return city.fields.nombre;
+      }
+    });
+    // return "Desconocida";
   }
 
   pageLength: number;
@@ -31,76 +51,76 @@ export class DashboardComponent implements OnInit {
   guiasTotal: Guia[] = [];
   guiaFiltered: Guia[] = []
 
-
-  citys: any[] = [
-    { value: 'steak-0', viewValue: 'Bogota' },
-    { value: 'pizza-1', viewValue: 'Cúcuta' },
-    { value: 'tacos-2', viewValue: 'Villavicencio' }
-  ];
+  cities: City[] = [
+    {
+      fields: { nombre: "Todas" },
+      pk: "all"
+    },
+  ]
   categorys: any[] = [
-    { value: 'all', viewValue:'Todas'},
+    { value: 'all', viewValue: 'Todas' },
     { value: 'Deportes', viewValue: 'Deportes' },
     { value: 'DE', viewValue: 'DE' },
     { value: 'canoping', viewValue: 'canoping' },
   ];
 
-  Guiasr: Guia[] = [
-    {
-      apellidoPaterno: 'Duarte',
-      apellidoMaterno: 'Sep�lveda',
-      nombres: "Eduard",
-      documento: '1090366576',
-      fechaNacimiento: new Date(1992, 2, 14),
-      sexo: 'M',
-      descripcion: 'Experto en Deportes extremos',
-      // una  frase debajo del nombre
-      categorias: ['Deportes', 'canoping'], //ojo debe ser una lista
-      //faltan
-      fotoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1CHZcIamB4hIA-AsPIC9eyBeC-WK17CG4PICi3K_pnqhwtiGF',
-      usuariosRedes: 'https://github.com/EduarDuarteS',
-    },
-    {
-      apellidoPaterno: 'Gomez',
-      apellidoMaterno: 'Tobeda',
-      nombres: "Camila",
-      documento: '1648526',
-      fechaNacimiento: new Date(1996, 5, 8),
-      sexo: 'F',
-      descripcion: 'Vive la aventura',
-      // una  frase debajo del nombre
-      categorias: ['DE'], //ojo debe ser una lista
-      //faltan
-      fotoUrl: 'https://cdn.colombia.com/sdi/2019/03/23/las-mujeres-de-bogota-se-toman-los-deportes-extremos-sobre-ruedas-721813.jpg',
-      usuariosRedes: 'https://www.facebook.com/people/Camila/100037474220943',
-    }
-  ];
-  constructor(public _guiasService: GuiasService) { }
 
+  loadCities() {
+    this._guiasService.getCities()
+      .subscribe(data => {
+        let largo = Object.entries(data).length;
+        for (let i = 0; i < largo; i++) {
+          this.cities.push(data[i]);
+        }
+      })
+  };
 
-  cargarGuias() {
+  getGuias() {
     this._guiasService.getAllGuias()
       .subscribe(data => {
-        // if (data.length>0)
-        // this.guiasTotal = (data.guias);
-        // this.pageLength = this.guiasTotal.length;
         this.Guias = (data.guias);
         this.guiasTotal = this.Guias;
         this.pageLength = this.Guias.length;
-        // console.log("cargado del service", data);
+        this.dividirGuias();
+      });
+  }
+  cargarGuias() {
+    this._guiasService.getGuias()
+      .subscribe(data => {
+        for (let i = 0; i < data.length; i++) {
+          let guiaAux = new Guia();
+          guiaAux.pk = data[i].pk;
+          guiaAux.apellidoMaterno = data[i].fields.apellidoMaterno;
+          guiaAux.apellidoMaterno = data[i].fields.apellidoMaterno;
+          guiaAux.nombres = data[i].fields.nombres;
+          guiaAux.documento = data[i].fields.documento;
+          guiaAux.fechaNacimiento = data[i].fields.fechaNacimiento;
+          guiaAux.sexo = data[i].fields.sexo;
+          guiaAux.descripcion = data[i].fields.descripcion;
+          guiaAux.categorias = ["Montañismo", "" + data[i].fields.categorias];
+          // guiaAux.ciudad = ""+this.ciudadVal(data[i].fields.ciudad);
+
+          guiaAux.ciudad = "" + data[i].fields.ciudad;
+          guiaAux.fotoUrl = "assets/images/users/noimage.png";
+          // guiaAux.fotoUrl = data[i].fields.fotoUrl;
+          // guiaAux.usuariosRedes = data[i].fields.usuariosRedes;
+          this.Guias.push(guiaAux);
+        }
+        // this.Guias = (data.guias);
+        this.guiasTotal = this.Guias;
+        this.pageLength = this.Guias.length;
         this.dividirGuias();
       });
   }
 
   dividirGuias() {
     this.Guias = this.guiasTotal.slice(0, 5);
-    console.log(this.Guias);
-    console.log(this.guiasTotal);
   }
   guiasMostrar() {
 
   }
   pageChangeEvent(event) {
-    if (this.catSeled !== '' || this.ciuSeled !== '') {
+    if (this.catSeled !== '' && this.ciuSeled !== '') {
       const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
       this.Guias = this.guiaFiltered.slice(offset).slice(0, event.pageSize);
     } else {
@@ -110,12 +130,56 @@ export class DashboardComponent implements OnInit {
   }
 
   //filtros
-  cambiaCat(cat: string) {
-    this.catSeled = cat;
-    if (cat == "all") {
+  cambiaCat(cat: string, callCiu?: boolean) {
+    if (cat == "")
+      return
+    cat = "" + cat;
+    if (callCiu)
       this.guiaFiltered = this.guiasTotal;
+    this.catSeled = cat;
+    if (cat === "all") {
+      if (this.ciuSeled === '' || this.ciuSeled === 'all') {
+        this.guiaFiltered = this.guiasTotal;
+      } else {
+        if (!callCiu)
+          this.cambiaCiu(this.ciuSeled, true);
+      }
+    } else if (this.ciuSeled === '' || this.ciuSeled === 'all') {
+      if (!callCiu)
+        this.cambiaCiu(this.ciuSeled, true);
+      this.guiaFiltered = this.guiasTotal.filter(guiaCiudad => guiaCiudad.categorias.includes("" + cat));
     } else {
-      this.guiaFiltered = this.guiasTotal.filter(guiaCiudad => guiaCiudad.categorias.includes(cat));
+      if (!callCiu)
+        this.cambiaCiu(this.ciuSeled, true);
+      this.guiaFiltered = this.guiaFiltered.filter(guiaCiudad => guiaCiudad.categorias.includes("" + cat));
+
+    }
+
+    this.Guias = this.guiaFiltered.slice(0, 5);
+    this.pageLength = this.guiaFiltered.length;
+  }
+  cambiaCiu(ciu: string, callCat?: boolean) {
+    if (ciu == "")
+      return
+    ciu = "" + ciu;
+    if (callCat)
+      this.guiaFiltered = this.guiasTotal;
+    this.ciuSeled = ciu;
+    if (ciu === "all") {
+      if (this.catSeled === '' || this.catSeled === 'all') {
+        this.guiaFiltered = this.guiasTotal;
+      } else {
+        if (!callCat)
+          this.cambiaCat(this.catSeled, true);
+      }
+    } else if (this.catSeled === '' || this.catSeled === 'all') {
+      if (!callCat)
+        this.cambiaCat(this.catSeled, true);
+      this.guiaFiltered = this.guiasTotal.filter(guiaCiudad => guiaCiudad.ciudad.includes(ciu));
+    } else {
+      if (!callCat)
+        this.cambiaCat(this.catSeled, true);
+      this.guiaFiltered = this.guiaFiltered.filter(guiaCiudad => guiaCiudad.ciudad.includes(ciu));
     }
     this.Guias = this.guiaFiltered.slice(0, 5);
     this.pageLength = this.guiaFiltered.length;
