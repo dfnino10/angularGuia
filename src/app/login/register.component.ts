@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
 import { UsuarioService } from '../services/service.index';
-import Swal from 'sweetalert2';
 import { Usuario } from '../models/usuario.model';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -21,6 +20,9 @@ export class RegisterComponent implements OnInit {
   hasConfirmPass = false;
   sex = '';
 
+  regExpValidMail: RegExp = /^[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,}$/i;
+  errorMail = false;
+  formattedDate: string;
   public userToCreate: Usuario;
   public confPassword: string;
 
@@ -32,31 +34,29 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
-    console.log('guardar formulario');
-
-    const date = new Date(this.addUserForm.controls.bornDate.value);
-    const newDate =   '1193-05-05';
-
-
     this.userToCreate.usuario = this.addUserForm.controls.user.value;
     this.userToCreate.nombres = this.addUserForm.controls.names.value;
     this.userToCreate.apellidos = this.addUserForm.controls.lastNames.value;
     this.userToCreate.documento = this.addUserForm.controls.documentNumber.value;
     this.userToCreate.sexo = this.sex;
-    this.userToCreate.fechaNacimiento = newDate;
+    this.userToCreate.fechaNacimiento = this.formattedDate;
     this.userToCreate.telefono = this.addUserForm.controls.phoneNumber.value;
     this.userToCreate.correo = this.addUserForm.controls.email.value;
     this.userToCreate.password = this.addUserForm.controls.password.value;
 
     this.usuarioService.httpServiceCreateUser(this.userToCreate).subscribe(
       response => {
+        this.addUserForm.reset();
+        this.validateForm();
+        swal.fire('Su registro ha sido exitoso',
+        'Bienvenido!',
+        'success');
         console.log('success create user', response);
       }, error => {
+        swal.fire('Error registrando usuario', 'Intente nuevamente.', 'error');
         console.log('fail create user', error);
       }
     );
-
-
   }
 
   initFieldForm() {
@@ -91,8 +91,7 @@ export class RegisterComponent implements OnInit {
     if (this.hasConfirmPass && this.hasPass) {
       this.errorPassword = this.addUserForm.controls.password.value !== this.addUserForm.controls.confirmPassword.value;
     }
-
-    this.buttonRegister = this.addUserForm.valid && this.validSex && !this.errorPassword;
+    this.buttonRegister = this.addUserForm.valid && this.validSex && !this.errorPassword && !this.errorMail;
   }
 
   validateSex(value, field) {
@@ -113,6 +112,22 @@ export class RegisterComponent implements OnInit {
   validateNumber(value, field) {
     const newValue = value ? value.replace(/([^0-9])+/g, '') : '';
     this.addUserForm.controls[field].setValue(newValue);
+    this.validateForm();
+  }
+
+  validateEmail() {
+    if (this.regExpValidMail.test(this.addUserForm.controls.email.value)) {
+      this.errorMail = false;
+      this.validateForm();
+    } else {
+      this.errorMail = true;
+      this.validateForm();
+    }
+  }
+
+  validateDate(value, field) {
+    this.formattedDate = value.getFullYear() + '-' + (value.getMonth() + 1) + '-' + value.getDate()  ;
+    this.addUserForm.controls[field].setValue(value);
     this.validateForm();
   }
 

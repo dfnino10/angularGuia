@@ -1,5 +1,5 @@
 <div class="col-12" style="display: flex">
-  <div class="col-8" style="background-image:url(../assets/images/background/login-register.jpg); height: 100vh;  background-repeat: no-repeat;">
+  <div class="col-8" style="background-image:url(../assets/images/background/login-register.jpg); height: auto;  background-repeat: no-repeat;">
   </div>
   <div class="col-4">
     <form [formGroup]="addUserForm" style="margin: 1% 5% 0% 5%;">
@@ -9,28 +9,30 @@
         <h3 class="box-title">Registrese ahora</h3>
       </div>
       <div class="col-12 m-t-20">
-        <input class="form-control" type="text" formControlName="user" (keyup)="onKeyInput($event.target.value, 'user');"
+        <input class="form-control" type="text" formControlName="user" maxlength="20" (keyup)="onKeyInput($event.target.value, 'user');"
           placeholder="Usuario">
       </div>
       <div class="col-12">
-        <input class="form-control" type="text" formControlName="names" (keyup)="onKeyInput($event.target.value, 'names');"
+        <input class="form-control" type="text" formControlName="names" maxlength="30" (keyup)="onKeyInput($event.target.value, 'names');"
           placeholder="Nombres">
       </div>
       <div class="col-12">
-        <input class="form-control" type="text" formControlName="lastNames" (keyup)="onKeyInput($event.target.value, 'lastNames');"
+        <input class="form-control" type="text" formControlName="lastNames" maxlength="30" (keyup)="onKeyInput($event.target.value, 'lastNames');"
           placeholder="Apellidos">
       </div>
       <div class="col-12">
-        <input class="form-control" type="text" formControlName="documentNumber" (keyup)="validateNumber($event.target.value, 'documentNumber');"
+        <input class="form-control" type="text" formControlName="documentNumber" maxlength="11" (keyup)="validateNumber($event.target.value, 'documentNumber');"
           placeholder="Número de documento ">
       </div>
       <div class="col-12">
-        <input class="form-control" type="text" formControlName="phoneNumber" (keyup)="validateNumber($event.target.value, 'phoneNumber');"
+        <input class="form-control" type="text" formControlName="phoneNumber" maxlength="10" (keyup)="validateNumber($event.target.value, 'phoneNumber');"
           placeholder="Número de télefono">
       </div>
       <div class="col-12">
-        <input class="form-control" type="text" formControlName="email" (keyup)="onKeyInput($event.target.value, 'email');"
+        <input class="form-control" type="text" [ngStyle]="errorMail ? {'border-color': 'red'} : ''"
+         (input)="validateEmail()" formControlName="email" maxlength="100" (keyup)="onKeyInput($event.target.value, 'email');"
           placeholder="Correo electrónico">
+          <span *ngIf="errorMail" style="color: red; font-size: 10px">Por favor valide el valor ingresado (Longitud máxima 100 carácteres, ej. pepito@gmail.com)</span>
       </div>
       <div class="col-12 checkbox checkbox-primary p-t-0" style="display: flex; margin-top: 2%;">
         <label>Sexo: </label>
@@ -45,18 +47,18 @@
       </div>
       <div class="col-12">
         <mat-form-field style="width: 100%;">
-          <input matInput [matDatepicker]="picker" formControlName="bornDate" (dateChange)="onKeyInput($event.target.value, 'bornDate');"
+          <input matInput [matDatepicker]="picker" formControlName="bornDate" (dateChange)="validateDate($event.target.value, 'bornDate');"
             placeholder="Fecha nacimiento">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="col-12">
-        <input [ngStyle]="errorPassword ? {'border-color': 'red'} : ''" class="form-control" type="password"
+        <input [ngStyle]="errorPassword ? {'border-color': 'red'} : ''" class="form-control" maxlength="30" type="password"
           formControlName="password" (keyup)="onKeyInput($event.target.value, 'password');" placeholder="Password">
       </div>
       <div class="col-12">
-        <input [ngStyle]="errorPassword ? {'border-color': 'red'} : ''" class="form-control" type="password"
+        <input [ngStyle]="errorPassword ? {'border-color': 'red'} : ''" class="form-control" maxlength="30" type="password"
           formControlName="confirmPassword" (keyup)="onKeyInput($event.target.value, 'confirmPassword');" placeholder="Confirm Password">
       </div>
     </form>
