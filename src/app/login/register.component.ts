@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
     console.log('guardar formulario');
 
     const date = new Date(this.addUserForm.controls.bornDate.value);
-    const newDate =   date.getFullYear + '-' + date.getMonth + '-' + date.getDay;
+    const newDate =   '1193-05-05';
 
 
     this.userToCreate.usuario = this.addUserForm.controls.user.value;
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
     this.userToCreate.apellidos = this.addUserForm.controls.lastNames.value;
     this.userToCreate.documento = this.addUserForm.controls.documentNumber.value;
     this.userToCreate.sexo = this.sex;
-    this.userToCreate.fechaNacimiento = new Date(newDate);
+    this.userToCreate.fechaNacimiento = newDate;
     this.userToCreate.telefono = this.addUserForm.controls.phoneNumber.value;
     this.userToCreate.correo = this.addUserForm.controls.email.value;
     this.userToCreate.password = this.addUserForm.controls.password.value;

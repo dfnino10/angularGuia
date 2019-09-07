@@ -24,7 +24,7 @@ export class UsuarioService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
-  }
+  };
 
   constructor(
     public http: HttpClient,
