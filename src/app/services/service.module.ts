@@ -8,6 +8,7 @@ import {
   SidebarService,
   SharedService,
   UsuarioService,
+  EmailService,
   LoginGuardGuard,
   AdminGuard,
 
@@ -24,6 +25,7 @@ import {
     SidebarService,
     SharedService,
     UsuarioService,
+    EmailService,
     LoginGuardGuard,
     AdminGuard,
     ModalUploadService

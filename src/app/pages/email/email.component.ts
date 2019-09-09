@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
+import { EmailService } from 'src/app/services/service.index';
 
 @Component({
   selector: 'app-email',
@@ -12,6 +13,7 @@ export class EmailComponent implements OnInit {
   form: FormGroup;
 
   constructor(
+    private emailService: EmailService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<EmailComponent>
   ) {}
@@ -26,8 +28,8 @@ export class EmailComponent implements OnInit {
   }
 
   submit(form: FormGroup) {
-
-    console.log(form.value.message);
+    //this.emailService.sendNewMessage(form.value.name, form.value.email, form.value.message);
+    this.dialogRef.afterClosed().subscribe(result =>  this.emailService.sendNewMessage(form.value.name, form.value.email, form.value.message));
     this.dialogRef.close();
   }
 
