@@ -4,7 +4,7 @@ import { Login } from '../../models/login.model';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
-import swal from 'sweetalert2'
+import swal from 'sweetalert2';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 

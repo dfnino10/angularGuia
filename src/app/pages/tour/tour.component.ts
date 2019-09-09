@@ -13,7 +13,6 @@ import { EmailComponent } from '../email/email.component';
 export class TourComponent implements OnInit {
 
   tours: Tour[] = [];
-  count: number = 1;
   dialogEmail: MatDialogRef<EmailComponent>; 
 
   constructor(private tourService: TourService,
@@ -35,8 +34,6 @@ export class TourComponent implements OnInit {
   }
 
   myDialog() {
-    this.count++; 
-    console.log("kyc prro :v" + this.count);
     this.dialogEmail = this.dialog.open(EmailComponent, {
       height: '400px',
       width: '600px',
