@@ -59,9 +59,16 @@ export class DashboardComponent implements OnInit {
   ]
   categorys: any[] = [
     { value: 'all', viewValue: 'Todas' },
-    { value: 'Deportes', viewValue: 'Deportes' },
-    { value: 'DE', viewValue: 'DE' },
-    { value: 'canoping', viewValue: 'canoping' },
+    { value: '1', viewValue: 'Caminatas' },
+    { value: '2', viewValue: 'Senderismo' },
+    { value: '3', viewValue: 'Canotaje' },
+    { value: '4', viewValue: 'Rapel' },
+    { value: '5', viewValue: 'Aereas' },
+    { value: '6', viewValue: 'Motores' },
+    { value: '7', viewValue: 'Deportes' },
+    { value: '8', viewValue: 'canoping' },
+    { value: '9', viewValue: 'caballos' },
+    { value: '10', viewValue: 'ponis' },
   ];
 
 
@@ -97,7 +104,9 @@ export class DashboardComponent implements OnInit {
           guiaAux.fechaNacimiento = data[i].fields.fechaNacimiento;
           guiaAux.sexo = data[i].fields.sexo;
           guiaAux.descripcion = data[i].fields.descripcion;
-          guiaAux.categorias = ["Montañismo", "" + data[i].fields.categorias];
+          guiaAux.categorias = [this.categorys[i].viewValue,""+i, this.categorys[data[i].fields.categoria].viewValue,""+ data[i].fields.categoria];
+
+          // guiaAux.categorias = ["Montañismo", "" + data[i].fields.categorias];
           // guiaAux.ciudad = ""+this.ciudadVal(data[i].fields.ciudad);
 
           guiaAux.ciudad = "" + data[i].fields.ciudad;
