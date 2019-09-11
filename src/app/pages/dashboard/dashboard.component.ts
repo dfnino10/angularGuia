@@ -196,9 +196,6 @@ export class DashboardComponent implements OnInit {
   }
 
   isNumber(val:number) {
-    let ev:number = +val;
-    console.log(ev);
-    console.log(typeof +ev === 'number');
     return isNaN(val);
   }
 
