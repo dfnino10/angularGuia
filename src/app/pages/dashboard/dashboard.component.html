@@ -1,4 +1,5 @@
-<div  >
+<div class="" *ngIf="!Guias.length" >Loading</div>
+<div  *ngIf="Guias.length" >
   <!-- Fitros para buscar los guias -->
   <div>
     <span id="filtro">City:</span>
@@ -23,12 +24,12 @@
   </div>
 
   <!-- Lista de los guias  -->
-  <div class="card-deck">
+  <div class="card-deck" *ngIf="Guias.length">
     <div *ngFor="let guia of Guias; let i = index">
       <div class="card" style="width: 18rem;">
         <img src={{guia.fotoUrl}} (click)="_modalUploadService.mostrarModal()" class="card-img-top" alt="foto de {{guia.nombre}}">
         <div class="card-body">
-          <h5 class="card-title">{{guia.nombres}} ({{guia.ciudad}})</h5>
+          <h5 class="card-title">{{guia.nombres}} (<b>{{guia.ciudad | ciudadPipe:cities}}</b>) PK: {{guia.ciudad}}</h5>
           <p class="card-text">{{guia.descripcion}}</p>
         </div>
         <ul class="list-group list-group-flush">
@@ -40,7 +41,7 @@
               </ul>
             </span>
             <ul *ngFor="let categoria of guia.categorias">
-              <li>{{categoria}}</li>
+              <li *ngIf='isNumber(categoria)'><b>{{categoria}}</b></li>
             </ul>
           </li>
           <li class="list-group-item">Redes Sociales <br>
@@ -51,7 +52,7 @@
           </li>
         </ul>
         <div class="card-body">
-          <a href="#tour/{{guia.pk}}" class="card-link">Ver los Tours de {{guia.nombre}}</a>
+          <a href="#tour/{{guia.pk}}" class="card-link">Ver los Tours de {{guia?.nombres}}</a>
           <!-- <a href="#" class="card-link"> <i class="fas fa-hiking"></i><i class="fas fa-route">route</i>Another link</a> -->
         </div>
       </div>

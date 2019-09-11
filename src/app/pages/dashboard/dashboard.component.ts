@@ -3,6 +3,7 @@ import { GuiasService } from '../../services/guias/guias.service'
 import { Guia } from '../../models/guia.model';
 import { City } from '../../models/cities.model'
 import { ModalUploadService } from '../../shared/modal-upload/modal-upload.service'
+import { CiudadPipe } from '../../pipes/ciudad.pipe';
 
 
 @Component({
@@ -192,6 +193,13 @@ export class DashboardComponent implements OnInit {
     }
     this.Guias = this.guiaFiltered.slice(0, 5);
     this.pageLength = this.guiaFiltered.length;
+  }
+
+  isNumber(val:number) {
+    let ev:number = +val;
+    console.log(ev);
+    console.log(typeof +ev === 'number');
+    return isNaN(val);
   }
 
 }

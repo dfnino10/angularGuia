@@ -11,6 +11,9 @@ import { PagesComponent } from './pages.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+//PipesModule
+import { PipesModule } from '../pipes/pipes.module';
+
 
 import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -47,7 +50,8 @@ import { MatDialogModule } from '@angular/material';
     PAGES_ROUTES,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    PipesModule
   ],
   entryComponents: [
     EmailComponent
