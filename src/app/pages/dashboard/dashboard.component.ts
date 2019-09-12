@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GuiasService } from '../../services/guias/guias.service'
 import { Guia } from '../../models/guia.model';
 import { City } from '../../models/cities.model'
+import { Category } from '../../models/category.model'
 import { ModalUploadService } from '../../shared/modal-upload/modal-upload.service'
 import { CiudadPipe } from '../../pipes/ciudad.pipe';
 
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.cargarGuias();
     this.loadCities();
+    this.loadCategories();
     // this.getGuias();
   }
   ngAfterViewInit() {
@@ -57,7 +59,14 @@ export class DashboardComponent implements OnInit {
       fields: { nombre: "Todas" },
       pk: "all"
     },
-  ]
+  ];
+  categories: Category[] = [
+    {
+      fields: { nombre: "Todas" },
+      pk: "all"
+    },
+  ];
+
   categorys: any[] = [
     { value: 'all', viewValue: 'Todas' },
     { value: '1', viewValue: 'Caminatas' },
@@ -79,6 +88,17 @@ export class DashboardComponent implements OnInit {
         let largo = Object.entries(data).length;
         for (let i = 0; i < largo; i++) {
           this.cities.push(data[i]);
+        }
+      })
+  };
+
+  loadCategories() {
+    this._guiasService.getCategories()
+      .subscribe(data => {
+        let largo = Object.entries(data).length;
+        for (let i = 0; i < largo; i++) {
+          this.categories.push(data[i]);
+          console.log(this.categorys);
         }
       })
   };
@@ -105,8 +125,9 @@ export class DashboardComponent implements OnInit {
           guiaAux.fechaNacimiento = data[i].fields.fechaNacimiento;
           guiaAux.sexo = data[i].fields.sexo;
           guiaAux.descripcion = data[i].fields.descripcion;
-          guiaAux.categorias = [this.categorys[i].viewValue,""+i, this.categorys[data[i].fields.categoria].viewValue,""+ data[i].fields.categoria];
-
+          guiaAux.categorias = ["" + data[i].fields.categoria];
+          console.log("ojo: ",  data[i].fields);
+          // guiaAux.categorias = [this.categorys[i].viewValue, "" + i, this.categorys[data[i].fields.categoria].viewValue, "" + data[i].fields.categoria];
           // guiaAux.categorias = ["Montañismo", "" + data[i].fields.categorias];
           // guiaAux.ciudad = ""+this.ciudadVal(data[i].fields.ciudad);
 
@@ -195,7 +216,7 @@ export class DashboardComponent implements OnInit {
     this.pageLength = this.guiaFiltered.length;
   }
 
-  isNumber(val:number) {
+  isNumber(val: number) {
     return isNaN(val);
   }
 

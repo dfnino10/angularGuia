@@ -1,5 +1,4 @@
-<div class="" *ngIf="!Guias.length" >Loading</div>
-<div  *ngIf="Guias.length" >
+<!-- <div class="" *ngIf="!Guias.length" >Loading</div> -->
   <!-- Fitros para buscar los guias -->
   <div>
     <span id="filtro">City:</span>
@@ -16,14 +15,17 @@
     <mat-form-field>
       <mat-label>Select Category</mat-label>
       <mat-select  (selectionChange)="cambiaCat($event.value)" >
-        <mat-option  *ngFor="let category of categorys"  [value]="category.value">
-          {{category.viewValue}}
+        <mat-option  *ngFor="let category of categories"  [value]="category?.pk">
+          {{category?.fields?.nombre}}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 
+
   <!-- Lista de los guias  -->
+  <div  *ngIf="Guias.length" >
+
   <div class="card-deck" *ngIf="Guias.length">
     <div *ngFor="let guia of Guias; let i = index">
       <div class="card" style="width: 18rem;">
@@ -41,7 +43,9 @@
               </ul>
             </span>
             <ul *ngFor="let categoria of guia.categorias">
-              <li *ngIf='isNumber(categoria)'>{{categoria}}</li>
+              <!-- <li *ngIf='isNumber(categoria)'>{{categoria}}</li> -->
+              <li >  {{categoria | ciudadPipe:categories}} PK: {{categoria}}</li>
+
             </ul>
           </li>
           <li class="list-group-item">Redes Sociales <br>

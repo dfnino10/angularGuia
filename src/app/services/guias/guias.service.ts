@@ -3,6 +3,7 @@ import { Guia, Guias } from "../../models/guia.model";
 import { GuiaT, GuiasT } from "../../models/guias.model";
 
 import { City, Cities } from "../../models/cities.model";
+import { Category, Categories } from "../../models/category.model";
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { Observable, of } from 'rxjs';
@@ -22,6 +23,18 @@ export class GuiasService {
     let UrlMockUp: string = "https://demo1489608.mockable.io";
 
     return this.httpClient.get<Guias>(UrlMockUp + '/guias')
+      .pipe(
+        retry(1),
+        catchError(err => {
+          return Observable.throw(err);
+        }
+        )
+      )
+  };
+
+  getCategories(): Observable<Categories> {
+
+    return this.httpClient.get<Categories>(URL_SERVICIOS + '/guia/getCategorias')
       .pipe(
         retry(1),
         catchError(err => {
