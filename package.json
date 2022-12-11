@@ -28,7 +28,7 @@
     "angular-font-awesome": "^3.1.2",
     "angular2-image-upload": "^1.0.0-rc.2",
     "core-js": "^2.5.4",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "font-awesome": "^4.7.0",
     "rxjs": "~6.5.2",
     "rxjs-compat": "^6.5.3",
